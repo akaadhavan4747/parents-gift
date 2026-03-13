@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Parents ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background: radial-gradient(circle at top,#0f2027,#203a43,#2c5364);
+color:white;
+overflow-x:hidden;
+}
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+}
+
+h1{
+font-size:3rem;
+margin-bottom:20px;
+animation:fadeIn 2s ease;
+}
+
+p{
+max-width:700px;
+font-size:1.2rem;
+line-height:1.8;
+animation:fadeIn 3s ease;
+}
+
+button{
+padding:15px 30px;
+font-size:1rem;
+border:none;
+border-radius:30px;
+background:#ff7a18;
+background:linear-gradient(45deg,#ff7a18,#ffb347);
+color:white;
+cursor:pointer;
+margin-top:30px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+transition:transform .2s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);} 
+to{opacity:1; transform:translateY(0);} 
+}
+
+.heart{
+font-size:4rem;
+animation:beat 1s infinite;
+}
+
+@keyframes beat{
+0%{transform:scale(1);} 
+50%{transform:scale(1.2);} 
+100%{transform:scale(1);} 
+}
+
+.hidden{
+opacity:0;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<section>
+<h1>Dear Mom & Dad</h1>
+<p>
+This is not just a webpage. This is a small world I created for the two people who created my whole world.
+</p>
+<button onclick="nextSection()">Open My Heart</button>
+</section>
+
+<section id="section2" class="hidden">
+<h1>Thank You ❤️</h1>
+<p>
+Thank you for every sacrifice you made for me.
+
+Thank you for believing in me when I doubted myself.
+
+Thank you for protecting me even when life was hard.
+
+Everything I become in the future will always start with you.
+</p>
+<button onclick="nextSection()">There is More</button>
+</section>
+
+<section id="section3" class="hidden">
+<h1>I Promise</h1>
+<p>
+One day I will make you proud.
+
+One day I will give you the life you deserve.
+
+This is my promise.
+
+Your love is the reason I keep moving forward.
+</p>
+<div class="heart">❤️</div>
+<button onclick="launchHearts()">Final Message</button>
+</section>
+
+<section id="section4" class="hidden">
+<h1>I Love You</h1>
+<p>
+No matter where life takes me,
+I will always be your child.
+
+Thank you for everything.
+
+I love you more than words can explain.
+</p>
+</section>
+
+<script>
+
+let current=1;
+
+function nextSection(){
+const next=document.getElementById("section"+(current+1));
+if(next){
+next.classList.remove("hidden");
+next.scrollIntoView({behavior:"smooth"});
+current++;
+}
+}
+
+function launchHearts(){
+for(let i=0;i<50;i++){
+let heart=document.createElement("div");
+heart.innerHTML="❤️";
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="100vh";
+heart.style.fontSize="30px";
+heart.style.animation="float 4s linear";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),4000);
+}
+
+nextSection();
+}
+
+const style=document.createElement('style');
+style.innerHTML=`
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-120vh);opacity:0}
+}`;
+document.head.appendChild(style);
+
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+
+for(let i=0;i<200;i++){
+stars.push({
+ x:Math.random()*canvas.width,
+ y:Math.random()*canvas.height,
+ r:Math.random()*2
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+
+s.y+=0.2;
+
+if(s.y>canvas.height){
+s.y=0;
+}
+});
+
+requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+
+</script>
+
+</body>
+</html>
